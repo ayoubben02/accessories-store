@@ -1,1 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Mobile Corner – Phone accessories</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700;800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F7FB;--surface:#fff;--ink:#14162B;--muted:#585C78;--line:#DADDEE;
+  --btn:#1F2A7A;--on-btn:#fff;--accent:#F2B632;--hero:#1F2A7A;--on-hero:#fff;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0E1024;--surface:#171A36;--ink:#ECEEFB;--muted:#A0A5C8;--line:#2A2E57;
+  --btn:#F2B632;--on-btn:#14162B;--hero:#171A36;--on-hero:#ECEEFB;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0E1024;--surface:#171A36;--ink:#ECEEFB;--muted:#A0A5C8;--line:#2A2E57;
+  --btn:#F2B632;--on-btn:#14162B;--hero:#171A36;--on-hero:#ECEEFB;color-scheme:dark}
+*,*::before,*::after{box-sizing:border-box}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;min-height:100%;background:var(--bg);color:var(--ink);font:400 16px/1.55 "DM Sans",system-ui,sans-serif}
+h1,h2,h3{font-family:"Bricolage Grotesque","DM Sans",system-ui,sans-serif;line-height:1.1;margin:0}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:12px;height:64px}
+.brand{font:800 22px "Bricolage Grotesque",sans-serif;letter-spacing:-.02em;margin-right:auto}
+.btn{background:var(--btn);color:var(--on-btn);border:0;border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--ink);border:1px solid var(--line)}
+.btn.full{width:100%;padding:13px}
+.cartbtn{position:relative}
+.badge{display:inline-grid;place-items:center;min-width:22px;height:22px;margin-left:8px;padding:0 6px;border-radius:11px;background:var(--accent);color:#14162B;font-size:13px}
+.hero{background:var(--hero);color:var(--on-hero);position:relative;overflow:hidden}
+.hero .wrap{display:grid;grid-template-columns:1.2fr 1fr;gap:32px;align-items:center;padding-top:56px;padding-bottom:56px}
+.hero h1{font-size:clamp(34px,6vw,64px);font-weight:800;letter-spacing:-.03em;max-width:12ch}
+.hero p{max-width:44ch;opacity:.88;margin:16px 0 24px;font-size:18px}
+.hero .btn{background:var(--accent);color:#14162B}
+.hero svg{width:100%;height:auto;border-radius:16px;display:block}
+.tools{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin:32px 0 20px}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-right:auto}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:7px 14px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--btn);color:var(--on-btn);border-color:var(--btn)}
+.tools input,.tools select{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:9px 12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:20px;padding-bottom:56px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden;display:flex;flex-direction:column}
+.card .art{aspect-ratio:1/1;display:block}
+.card .art svg{width:100%;height:100%;display:block}
+.card .body{padding:14px 16px 16px;display:flex;flex-direction:column;gap:6px;flex:1}
+.card h3{font-size:19px;font-weight:700}
+.card .cat{color:var(--muted);font-size:14px}
+.card .desc{color:var(--muted);font-size:14px;flex:1}
+.card .row{display:flex;align-items:center;justify-content:space-between;margin-top:8px;gap:8px}
+.price{font-weight:700}
+.empty{grid-column:1/-1;padding:40px;text-align:center;color:var(--muted)}
+footer{border-top:1px solid var(--line);padding:28px 0;color:var(--muted);font-size:14px}
+/* drawer */
+.scrim{position:fixed;inset:0;background:rgba(10,12,30,.55);opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
+.scrim.on{opacity:1;pointer-events:auto}
+aside.drawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100%);background:var(--surface);z-index:21;display:flex;flex-direction:column;transform:translateX(100%);transition:transform .25s;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+aside.drawer.on{transform:none}
+.dh{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--line)}
+.dh h2{font-size:22px}
+.items{flex:1;overflow:auto;padding:8px 20px}
+.item{display:grid;grid-template-columns:64px 1fr auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.item .th{width:64px;height:64px;border-radius:8px;overflow:hidden}
+.item .th svg{width:100%;height:100%;display:block}
+.item b{display:block;line-height:1.25}
+.qty{display:inline-flex;align-items:center;gap:8px;margin-top:4px}
+.qty button{width:28px;height:28px;border-radius:8px;border:1px solid var(--line);background:transparent;cursor:pointer}
+.df{padding:16px 20px;border-top:1px solid var(--line);display:grid;gap:10px}
+.df .tot{display:flex;justify-content:space-between;font-weight:700;font-size:18px}
+.df small{color:var(--muted)}
+dialog{border:1px solid var(--line);border-radius:16px;background:var(--surface);color:var(--ink);padding:24px;width:min(440px,calc(100% - 32px))}
+dialog::backdrop{background:rgba(10,12,30,.6)}
+dialog h2{font-size:24px;margin-bottom:12px}
+label{display:grid;gap:4px;margin-bottom:12px;font-weight:500}
+label input{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-weight:400}
+.actions{display:flex;gap:10px;justify-content:flex-end;margin-top:8px}
+@media (max-width:760px){.hero .wrap{grid-template-columns:1fr;padding-top:36px;padding-bottom:36px}.hero svg{max-height:180px}}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <div class="brand">Mobile Corner</div>
+  <button class="btn ghost" id="theme" aria-label="Switch between light and dark mode" title="Switch theme">🌙</button>
+  <button class="btn cartbtn" id="openCart">Cart<span class="badge" id="count">0</span></button>
+</div></header>
 
+<section class="hero"><div class="wrap">
+  <div>
+    <h1>Everything your phone needs.</h1>
+    <p>Écouteurs, chargeurs, câbles and protection. Order in a minute, confirm on WhatsApp.</p>
+    <a href="#shop"><button class="btn">Shop the collection</button></a>
+  </div>
+  <svg viewBox="0 0 200 140" aria-hidden="true">
+    <defs><pattern id="hp" width="40" height="40" patternUnits="userSpaceOnUse">
+      <circle cx="20" cy="20" r="12" fill="#F2B632"/>
+      <circle cx="20" cy="20" r="8" fill="#1F2A7A"/>
+      <circle cx="20" cy="20" r="5" fill="#F6F7FB"/></pattern></defs>
+    <rect width="200" height="140" fill="#2A38A0"/><rect width="200" height="140" fill="url(#hp)"/>
+  </svg>
+</div></section>
+
+<main class="wrap" id="shop">
+  <div class="tools">
+    <div class="chips" id="chips" role="group" aria-label="Categories"></div>
+    <input type="search" id="q" placeholder="Search products" aria-label="Search products">
+    <select id="sort" aria-label="Sort products">
+      <option value="">Featured</option><option value="asc">Price: low to high</option><option value="desc">Price: high to low</option>
+    </select>
+  </div>
+  <div class="grid" id="grid"></div>
+</main>
+<footer><div class="wrap">© Mobile Corner. Free delivery on orders over 300 MAD.</div></footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true" aria-label="Shopping cart">
+  <div class="dh"><h2>Your cart</h2><button class="btn ghost" id="closeCart">Close</button></div>
+  <div class="items" id="items"></div>
+  <div class="df">
+    <div class="tot"><span>Subtotal</span><span id="sub">0 MAD</span></div>
+    <small id="ship"></small>
+    <button class="btn full" id="checkout">Commande</button>
+  </div>
+</aside>
+
+<dialog id="dlg">
+  <form id="form" method="dialog" novalidate>
+    <h2>Delivery details</h2>
+    <label>Full name<input name="name" required autocomplete="name"></label>
+    <label>Phone<input name="phone" type="tel" required autocomplete="tel"></label>
+    <label>City and address<input name="addr" required autocomplete="street-address"></label>
+    <p id="err" style="color:#C0392B;margin:0 0 8px" role="alert"></p>
+    <div class="actions"><button type="button" class="btn ghost" id="cancel">Back to cart</button><button class="btn" type="submit">Send on WhatsApp</button></div>
+  </form>
+  <div id="done" hidden>
+    <h2>Almost done</h2>
+    <p id="doneMsg"></p>
+    <div class="actions"><button class="btn" id="ok">Keep shopping</button></div>
+  </div>
+</dialog>
+
+<script>
+const P=[
+ {id:1,n:'Écouteurs sans fil Pro',cat:'Écouteurs',price:249,e:'🎧',c1:'#1F2A7A',c2:'#3B4BC0',k:'dots',d:'Bluetooth 5.3, 24 h d’autonomie avec le boîtier.'},
+ {id:2,n:'Écouteurs filaires USB-C',cat:'Écouteurs',price:59,e:'🎧',c1:'#2A9D8F',c2:'#46C2B3',k:'stripes',d:'Micro intégré, son clair, câble de 1,2 m.'},
+ {id:3,n:'Casque Bluetooth pliable',cat:'Écouteurs',price:189,e:'🎧',c1:'#14162B',c2:'#2E3260',k:'diamond',d:'Coussinets souples, 30 h d’écoute.'},
+ {id:4,n:'Chargeur rapide 20 W',cat:'Chargeurs',price:79,e:'🔌',c1:'#E0527A',c2:'#F27A99',k:'dots',d:'Prise USB-C, compatible iPhone et Android.'},
+ {id:5,n:'Chargeur voiture double USB',cat:'Chargeurs',price:69,e:'🔌',c1:'#C8473A',c2:'#E0675A',k:'stripes',d:'Deux ports, charge deux téléphones en même temps.'},
+ {id:6,n:'Batterie externe 10 000 mAh',cat:'Chargeurs',price:199,e:'🔋',c1:'#F2B632',c2:'#FFD166',k:'diamond',d:'Deux sorties USB, indicateur de charge.'},
+ {id:7,n:'Câble USB-C vers USB-C 1 m',cat:'Câbles',price:39,e:'🔗',c1:'#2A38A0',c2:'#4655C8',k:'stripes',d:'Charge rapide jusqu’à 60 W.'},
+ {id:8,n:'Câble Lightning tressé 1 m',cat:'Câbles',price:45,e:'🔗',c1:'#5B5F7A',c2:'#7A7F9E',k:'dots',d:'Nylon tressé, résistant à la torsion.'},
+ {id:9,n:'Coque transparente antichoc',cat:'Protection',price:49,e:'📱',c1:'#2A9D8F',c2:'#46C2B3',k:'diamond',d:'Bords renforcés, indiquez votre modèle sur WhatsApp.'},
+ {id:10,n:'Verre trempé, lot de 2',cat:'Protection',price:29,e:'📱',c1:'#14162B',c2:'#2E3260',k:'dots',d:'Dureté 9H, kit de pose inclus.'}
+];
+const SH={
+ star:c=>`<rect x="6" y="6" width="13" height="13" fill="${c}"/><rect x="6" y="6" width="13" height="13" fill="none" stroke="${c}" stroke-width="1.5" transform="rotate(45 12.5 12.5)"/>`,
+ diamond:c=>`<path d="M12.5 2L23 12.5 12.5 23 2 12.5z" fill="none" stroke="${c}" stroke-width="2"/>`,
+ dots:c=>`<circle cx="12.5" cy="12.5" r="4" fill="${c}"/>`,
+ stripes:c=>`<rect y="8" width="25" height="5" fill="${c}"/>`
+};
+const art=(p,pre)=>`<svg viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice" aria-hidden="true"><defs><pattern id="${pre}${p.id}" width="25" height="25" patternUnits="userSpaceOnUse">${SH[p.k](p.c2)}</pattern></defs><rect width="100" height="100" fill="${p.c1}"/><rect width="100" height="100" fill="url(#${pre}${p.id})"/><circle cx="50" cy="50" r="27" fill="${p.c1}"/><text x="50" y="50" font-size="34" text-anchor="middle" dominant-baseline="central">${p.e}</text></svg>`;
+const money=n=>n.toLocaleString('en-US')+' MAD';
+const $=s=>document.querySelector(s);
+let cart={},cat='All';
+try{cart=JSON.parse(localStorage.getItem('zh-cart')||'{}')||{}}catch(e){cart={}}
+const save=()=>{try{localStorage.setItem('zh-cart',JSON.stringify(cart))}catch(e){}};
+
+/* catalog */
+const cats=['All',...new Set(P.map(p=>p.cat))];
+$('#chips').innerHTML=cats.map(c=>`<button class="chip" aria-pressed="${c===cat}" data-c="${c}">${c}</button>`).join('');
+$('#chips').onclick=e=>{const b=e.target.closest('.chip');if(!b)return;cat=b.dataset.c;
+  document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x.dataset.c===cat));renderGrid()};
+$('#q').oninput=renderGrid;$('#sort').onchange=renderGrid;
+function renderGrid(){
+  const q=$('#q').value.trim().toLowerCase(),s=$('#sort').value;
+  let list=P.filter(p=>(cat==='All'||p.cat===cat)&&(p.n+' '+p.d).toLowerCase().includes(q));
+  if(s)list=[...list].sort((a,b)=>s==='asc'?a.price-b.price:b.price-a.price);
+  $('#grid').innerHTML=list.length?list.map(p=>`<article class="card"><div class="art">${art(p,'g')}</div><div class="body"><span class="cat">${p.cat}</span><h3>${p.n}</h3><p class="desc">${p.d}</p><div class="row"><span class="price">${money(p.price)}</span><button class="btn add" data-id="${p.id}">Add to cart</button></div></div></article>`).join(''):`<p class="empty">No products match your search. Clear the search or pick another category.</p>`;
+}
+$('#grid').onclick=e=>{const b=e.target.closest('.add');if(!b)return;
+  const id=b.dataset.id;cart[id]=(cart[id]||0)+1;save();renderCart();
+  b.textContent='Added';setTimeout(()=>b.textContent='Add to cart',900)};
+
+/* cart */
+function total(){return Object.entries(cart).reduce((s,[id,q])=>s+P.find(p=>p.id==id).price*q,0)}
+function renderCart(){
+  const ids=Object.keys(cart).filter(id=>cart[id]>0&&P.some(p=>p.id==id));
+  $('#count').textContent=ids.reduce((s,id)=>s+cart[id],0);
+  $('#items').innerHTML=ids.length?ids.map(id=>{const p=P.find(x=>x.id==id);
+    return `<div class="item"><div class="th">${art(p,'c')}</div><div><b>${p.n}</b><span class="qty"><button data-d="-1" data-id="${id}" aria-label="Decrease quantity">−</button><span>${cart[id]}</span><button data-d="1" data-id="${id}" aria-label="Increase quantity">+</button></span></div><span class="price">${money(p.price*cart[id])}</span></div>`}).join('')
+    :`<p class="empty">Your cart is empty. Add a product to get started.</p>`;
+  const t=total();$('#sub').textContent=money(t);
+  $('#ship').textContent=t===0?'':t>=300?'Delivery is free for this order.':`Add ${money(300-t)} more for free delivery.`;
+  $('#checkout').disabled=!t;
+}
+$('#items').onclick=e=>{const b=e.target.closest('[data-d]');if(!b)return;
+  const id=b.dataset.id;cart[id]=(cart[id]||0)+Number(b.dataset.d);if(cart[id]<=0)delete cart[id];save();renderCart()};
+const drawer=$('#drawer'),scrim=$('#scrim');
+function openCart(){drawer.classList.add('on');scrim.classList.add('on');drawer.setAttribute('aria-hidden','false');$('#closeCart').focus()}
+function closeCart(){drawer.classList.remove('on');scrim.classList.remove('on');drawer.setAttribute('aria-hidden','true');$('#openCart').focus()}
+$('#openCart').onclick=openCart;$('#closeCart').onclick=closeCart;scrim.onclick=closeCart;
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&drawer.classList.contains('on')&&!$('#dlg').open)closeCart()});
+
+/* checkout */
+const dlg=$('#dlg'),form=$('#form');
+/* Your WhatsApp number: country code + number, digits only (example for Morocco: 212612345678) */
+const WHATSAPP_NUMBER='212600000000';
+$('#checkout').onclick=()=>{form.hidden=false;$('#done').hidden=true;$('#err').textContent='';dlg.showModal()};
+$('#cancel').onclick=()=>dlg.close();
+form.onsubmit=e=>{e.preventDefault();
+  const f=new FormData(form);
+  if(!['name','phone','addr'].every(k=>String(f.get(k)).trim())){$('#err').textContent='Fill in your name, phone and address to place the order.';return}
+  const lines=Object.keys(cart).filter(id=>cart[id]>0).map(id=>{const p=P.find(x=>x.id==id);return `• ${p.n} × ${cart[id]} = ${money(p.price*cart[id])}`});
+  const msg=`Nouvelle commande\n\n${lines.join('\n')}\n\nTotal: ${money(total())}\n\nNom: ${String(f.get('name')).trim()}\nTéléphone: ${String(f.get('phone')).trim()}\nAdresse: ${String(f.get('addr')).trim()}`;
+  const a=document.createElement('a');
+  a.href=`https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(msg)}`;a.target='_blank';a.rel='noopener';
+  document.body.appendChild(a);a.click();a.remove();
+  $('#doneMsg').textContent='WhatsApp is opening with your order. Press send there to confirm it.';
+  cart={};save();renderCart();form.reset();form.hidden=true;$('#done').hidden=false};
+$('#ok').onclick=()=>{dlg.close();closeCart()};
+
+/* theme */
+const root=document.documentElement,mq=matchMedia('(prefers-color-scheme: dark)');
+function setTheme(t,persist){root.setAttribute('data-theme',t);$('#theme').textContent=t==='dark'?'☀️':'🌙';if(persist){try{localStorage.setItem('zh-theme',t)}catch(e){}}}
+let savedTheme=null;try{savedTheme=localStorage.getItem('zh-theme')}catch(e){}
+setTheme(savedTheme||(mq.matches?'dark':'light'),false);
+$('#theme').onclick=()=>setTheme(root.getAttribute('data-theme')==='dark'?'light':'dark',true);
+
+renderGrid();renderCart();
+</script>
+</body>
+</html>
